@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="Adam O'Keeffe Smyth">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <title>World happiness report</title>
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -135,7 +136,62 @@
   </div>
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<style type='text/css'>
+	.embeddedServiceHelpButton .helpButton .uiButton {
+		background-color: #005290;
+		font-family: "Arial", sans-serif;
+	}
+	.embeddedServiceHelpButton .helpButton .uiButton:focus {
+		outline: 1px solid #005290;
+	}
+</style>
 
+<script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
+<script type='text/javascript'>
+	var initESW = function(gslbBaseURL) {
+		embedded_svc.settings.displayHelpButton = true; //Or false
+		embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
+
+		//embedded_svc.settings.defaultMinimizedText = '...'; //(Defaults to Chat with an Expert)
+		//embedded_svc.settings.disabledMinimizedText = '...'; //(Defaults to Agent Offline)
+
+		//embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
+		//embedded_svc.settings.storageDomain = 'yourdomain.com'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
+
+		// Settings for Field Service
+
+		embedded_svc.settings.enabledFeatures = ['FieldService'];
+		embedded_svc.settings.entryFeature = 'FieldService';
+
+		embedded_svc.settings.useCustomAuthentication = false;
+		embedded_svc.settings.loginClientId = '';
+		embedded_svc.settings.loginRedirectURL = '';
+		embedded_svc.settings.loginTargetQuerySelector = '';
+		embedded_svc.settings.authenticationStartLabel = '';
+
+		embedded_svc.init(
+			'https://java-velocity-9873-dev-ed.cs80.my.salesforce.com',
+			'https://sandbox-vanguardscheduler-developer-edition.cs80.force.com',
+			gslbBaseURL,
+			'00D250000007VRP',
+			'Appointments',
+			{
+				
+			}
+		);
+	};
+
+	if (!window.embedded_svc) {
+		var s = document.createElement('script');
+		s.setAttribute('src', 'https://java-velocity-9873-dev-ed.cs80.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+		s.onload = function() {
+			initESW(null);
+		};
+		document.body.appendChild(s);
+	} else {
+		initESW('https://service.force.com');
+	}
+</script>
 </body>
 
 </html>
